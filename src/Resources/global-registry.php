@@ -24,7 +24,7 @@ return array(
 			),
 		),
 		'UpdateEntity' => array(
-			'extends' => 'AddEntity',
+			'extends' => 'CreateEntity',
 			'httpMethod' => 'PUT',
 			'uri' => '/entities/{entity_id}/',
 			'parameters'   => array(
