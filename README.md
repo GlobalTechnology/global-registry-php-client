@@ -5,12 +5,11 @@ This is a PHP client library for the [Global Registry](https://github.com/CruGlo
 
 This repository uses the [git-flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model. Please do development on the develop branch.
 
-### Installing via Composer
+# Installing via Composer
 
 Use of the Global Registry PHP Client is through [Composer](http://getcomposer.org).
 
-# Edit composer.json
-
+Create or edit composer.json and add the following
 ```json
 {
     "repositories": [
@@ -24,7 +23,7 @@ Use of the Global Registry PHP Client is through [Composer](http://getcomposer.o
     }
 }
 ```
-
+From the command line, install composer and required packages.
 ```bash
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
@@ -32,9 +31,7 @@ curl -sS https://getcomposer.org/installer | php
 # Install Packages
 php composer.phar install
 ```
-
 After installing, you need to require Composer's autoloader:
-
 ```php
 require 'vendor/autoload.php';
 ```
