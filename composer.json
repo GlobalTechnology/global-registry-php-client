@@ -1,13 +1,13 @@
 {
-	"name":        "globaltechnology/global-registry-client",
+	"name":        "globaltechnology/global-registry-php-client",
 	"require":     {
 		"php":           ">=5.3",
 		"guzzle/guzzle": "~3.7"
 	},
 	"autoload":    {
 		"psr-4": {
-			"GTO\\GlobalRegistry\\":        "src/",
-			"GTO\\GlobalRegistry\\Tests\\": "tests/"
+			"GlobalTechnology\\GlobalRegistry\\":        "src/",
+			"GlobalTechnology\\GlobalRegistry\\Tests\\": "tests/"
 		}
 	},
 	"require-dev": {

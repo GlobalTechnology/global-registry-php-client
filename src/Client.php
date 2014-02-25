@@ -1,4 +1,4 @@
-<?php namespace GTO\GlobalRegistry {
+<?php namespace GlobalTechnology\GlobalRegistry {
 	use Guzzle\Common\Collection;
 	use Guzzle\Common\Exception\InvalidArgumentException;
 	use Guzzle\Service\Description\ServiceDescription;
@@ -23,28 +23,30 @@
 			$config = Collection::fromConfig( $config, array(), self::$required );
 
 			$client = new self( $config->get( 'base_url' ), $config );
-
-			$description = ServiceDescription::factory( dirname( __FILE__ ) . "/../client.json" );
-			$client->setDescription( $description );
-
 			$client->setDefaultOption( 'headers/Authorization', "Bearer {$config['access_token']}" );
+			$client->setDescription( ServiceDescription::factory( dirname( __FILE__ ) . '/Resources/global-registry.php' ) );
 
 			return $client;
 		}
 
-
-		public function getEntityTypes() {
-			$command = $this->getCommand( 'GetEntityTypes' );
+		public function createEntity( $entity_type, $entity = array() ) {
+			$command = $this->getCommand( 'CreateEntity', array(
+				'entity_type' => $entity_type,
+				'entity'      => array(
+					$entity_type => $entity,
+				)
+			) );
 			return $this->execute( $command );
 		}
 
-		public function getEntities( $entityType, $filters = array() ) {
-			$command   = $this->getCommand( 'GetEntities', array(
-				'entity_type' => $entityType,
-				'filters'     => $filters,
+		public function updateEntity( $entity_id, $entity_type, $entity = array() ) {
+			$command = $this->getCommand( 'UpdateEntity', array(
+				'entity_id'   => $entity_id,
+				'entity_type' => $entity_type,
+				'entity'      => array(
+					$entity_type => $entity,
+				)
 			) );
-			$operation = $command->getOperation();
-			echo "URI: {$operation->getUri()}\n";
 			return $this->execute( $command );
 		}
 	}
