@@ -41,6 +41,7 @@ Basic Usage
 
 ```php
 <?php
+require 'vendor/autoload.php';
 
 $client = \GlobalTechnology\GlobalRegistry\Client::factory( array(
 	'base_url' => '__GLOBAL_REGISTRY_URL__',
