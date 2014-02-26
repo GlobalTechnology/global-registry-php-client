@@ -56,8 +56,9 @@ return array(
 			),
 		),
 		'DeleteEntity'   => array(
-			'extends'    => 'GetEntity',
-			'httpMethod' => 'DELETE',
+			'extends'      => 'GetEntity',
+			'httpMethod'   => 'DELETE',
+			'responseType' => 'primitive',
 		),
 		'SearchEntities' => array(
 			'extends'       => 'Entities',
