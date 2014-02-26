@@ -10,17 +10,19 @@
 		public $page;
 
 		public static function fromJSON( $json = null ) {
-			$data     = $json[ self::JSON_ENTITIES ];
-			$entities = array();
-			foreach ( $data as $entity ) {
-				$type        = array_keys( $entity )[ 0 ];
-				$entities[ ] = new Entity( $type, $entity[ $type ] );
-			}
-			return new self( $entities, $json[ self::JSON_META ] );
+			return new self( $json[ self::JSON_ENTITIES ], $json[ self::JSON_META ] );
 		}
 
 		public function __constructor( $entities = array(), $meta = array() ) {
-			parent::__construct( $entities );
+			parent::__construct( array() );
+			foreach ( $entities as $entity ) {
+				if ( $entity instanceof Entity )
+					$this->collection[ ] = $entity;
+				else {
+					$type                = array_keys( $entity )[ 0 ];
+					$this->collection[ ] = new Entity( $type, $entity[ $type ] );
+				}
+			}
 			foreach ( $meta as $name => $value ) {
 				$this->$name = $value;
 			}
