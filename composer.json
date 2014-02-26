@@ -1,7 +1,7 @@
 {
 	"name":        "globaltechnology/global-registry-php-client",
 	"require":     {
-		"php":           ">=5.3",
+		"php":           ">=5.4",
 		"guzzle/guzzle": "~3.7"
 	},
 	"autoload":    {
