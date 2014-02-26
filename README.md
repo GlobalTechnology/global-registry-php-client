@@ -48,27 +48,31 @@ $client = \GlobalTechnology\GlobalRegistry\Client::factory( array(
 	'access_token' => '__ACCESS_TOKEN__',
 ) );
 
-$entity = $client->createEntity( 'person', array(
+// Create Entity
+$entity = $client->createEntity( new \GlobalTechnology\GlobalRegistry\Model\Entity( 'person', array(
 	'first_name'            => 'John',
 	'last_name'             => 'Doe',
 	'address'               => array( 'country' => 'US' ),
 	'client_integration_id' => '1',
-) );
+) ) );
 
-// $entity = array (
-//   'person' => array (
-//     'id' => 9947529,
-//     'parent_id' => NULL,
-//     'first_name' => 'John',
-//     'last_name' => 'Doe',
-//     'address' => array (
-//       'id' => 9947532,
-//       'country' => 'US',
-//     ),
-//     'client_integration_id' => 1,
-//   ),
-// );
+// Get an Entity
+$entity = $client->getEntity( 7178632, 'person' );
 
-// This may fail if 'id' attributes exist in child entities
-$entity = $client->updateEntity( 9947529, 'person', $entity['person'] );
+// Update an Entity
+$entity->last_name = 'TestUser';
+$entity = $client->updateEntity( $entity );
+
+// Delete an Entity
+$client->deleteEntity( $entity->id, $entity->type );
+
+// Search for Entities
+$entities = $client->getEntities( 'person', /*page*/ 1, array( 'first_name' => 'john', 'address' => array( 'country' => 'UK' ) ) );
+// $entities instanceof \GlobalTechnology\GlobalRegistry\Model\Entities
+foreach( $entities as $entity ) {
+	echo "{$entity->first_name} {$entity->last_name}";
+}
+// This will get simplified in the future
+if( $entities->total > $entities->to )
+	$entities = $client->getEntities( 'person', $entities->page + 1, array( ... ) );
 ```
