@@ -1,4 +1,5 @@
 <?php namespace GlobalTechnology\GlobalRegistry {
+	use GlobalTechnology\GlobalRegistry\Model\EntityType;
 	use Guzzle\Common\Collection;
 	use Guzzle\Common\Exception\InvalidArgumentException;
 	use Guzzle\Service\Description\ServiceDescription;
@@ -129,5 +130,41 @@
 			) );
 			return $this->execute( $command );
 		}
+
+		/*****************************************************
+		 *                 Entity Types
+		 ****************************************************/
+
+		public function getEntityTypes( $filters = array() ) {
+			return $this->getCommand( 'GetEntityTypes', array(
+				'filters' => $filters,
+			) )->execute();
+		}
+
+		public function getEntityType( $id ) {
+			return $this->getCommand( 'GetEntityType', array(
+				'entity_type_id' => $id,
+			) )->execute();
+		}
+
+		public function deleteEntityType( $id ) {
+			return $this->getCommand( 'DeleteEntityType', array(
+				'entity_type_id' => $id,
+			) )->execute();
+		}
+
+		public function createEntityType( EntityType $entityType ) {
+			return $this->getCommand( 'CreateEntityType', array(
+				'entity_type' => $entityType,
+			) )->execute();
+		}
+
+		public function updateEntityType( EntityType $entityType ) {
+			return $this->getCommand( 'UpdateEntityType', array(
+				'entity_type_id' => $entityType->id,
+				'entity_type'    => $entityType,
+			) )->execute();
+		}
+
 	}
 }

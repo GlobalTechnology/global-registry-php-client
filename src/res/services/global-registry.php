@@ -10,5 +10,6 @@ return array(
 	'name'     => 'Global Registry',
 	'includes' => array(
 		'endpoints/entities.php',
+		'endpoints/entity-types.php',
 	),
 );
