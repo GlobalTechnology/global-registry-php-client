@@ -39,6 +39,11 @@
 			return $client;
 		}
 
+
+		/*****************************************************
+		 *                    Entities
+		 ****************************************************/
+
 		/**
 		 * Create a new Entity on the Global Registry.
 		 * @see https://github.com/CruGlobal/global_registry/wiki/Add-Entity
@@ -114,7 +119,7 @@
 		 * @param int    $page
 		 * @param array  $filters
 		 *
-		 * @return array|\Guzzle\Http\Message\Response
+		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 		 */
 		public function getEntities( $type, $page = 1, $filters = array() ) {
 			$command = $this->getCommand( 'SearchEntities', array(

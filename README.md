@@ -68,7 +68,7 @@ $client->deleteEntity( $entity->id, $entity->type );
 
 // Search for Entities
 $entities = $client->getEntities( 'person', /*page*/ 1, array( 'first_name' => 'john', 'address' => array( 'country' => 'UK' ) ) );
-// $entities instanceof \GlobalTechnology\GlobalRegistry\Model\Entities
+// $entities instanceof \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 foreach( $entities as $entity ) {
 	echo "{$entity->first_name} {$entity->last_name}";
 }

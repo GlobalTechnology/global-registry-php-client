@@ -62,7 +62,7 @@ return array(
 		'SearchEntities' => array(
 			'extends'       => 'Entities',
 			'httpMethod'    => 'GET',
-			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entities',
+			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityCollection',
 			'parameters'    => array(
 				'filters' => array(
 					'type'     => 'array',
