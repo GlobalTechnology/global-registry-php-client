@@ -1,7 +1,7 @@
 <?php namespace GlobalTechnology\GlobalRegistry\Tests {
 	use GlobalTechnology\GlobalRegistry\Client;
 
-	class ClientTest extends \PHPUnit_Framework_TestCase {
+	class ClientFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		public function testFactoryReturnsClient() {
 			$config = array(

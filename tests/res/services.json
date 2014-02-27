@@ -1,0 +1,9 @@
+{
+	"globalregistry": {
+		"class":  "GlobalTechnology\\GlobalRegistry\\Client",
+		"params": {
+			"base_url":     "http://example.com",
+			"access_token": "abcdefghijklmnopqrstuvwxyz0123456789"
+		}
+	}
+}
