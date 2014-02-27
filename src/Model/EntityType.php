@@ -46,6 +46,7 @@
 				$data[ 'field_type' ] = $this->field_type;
 			if ( ! empty( $this->fields ) )
 				$data[ 'fields' ] = $this->fields;
+			return $data;
 		}
 
 	}

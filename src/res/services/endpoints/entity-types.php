@@ -17,6 +17,11 @@ return array(
 					'location' => 'query',
 					'required' => false,
 				),
+				'page'        => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
 			),
 		),
 		'GetEntityType'    => array(

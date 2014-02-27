@@ -10,7 +10,7 @@
 		public $page;
 
 		public static function fromJSON( $json = null ) {
-			return new self( $json[ self::JSON_ENTITIES ], $json[ self::JSON_META ] );
+			return new EntityTypeCollection( $json[ self::JSON_ENTITY_TYPES ], $json[ self::JSON_META ] );
 		}
 
 		public function __construct( $entityTypes = array(), $meta = array() ) {

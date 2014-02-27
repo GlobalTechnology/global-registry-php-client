@@ -93,13 +93,13 @@
 		/**
 		 * Delete an existing Entity
 		 *
-		 * @param int    $id
+		 * @param int $id
 		 *
 		 * @return array|\Guzzle\Http\Message\Response
 		 */
 		public function deleteEntity( $id ) {
 			return $this->getCommand( 'DeleteEntity', array(
-				'entity_id'   => $id,
+				'entity_id' => $id,
 			) )->execute();
 		}
 
@@ -124,30 +124,67 @@
 		 *                 Entity Types
 		 ****************************************************/
 
-		public function getEntityTypes( $filters = array() ) {
+		/**
+		 * Get Entity Types
+		 *
+		 * @param int   $page
+		 * @param array $filters
+		 *
+		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityTypeCollection
+		 */
+		public function getEntityTypes( $page = 1, $filters = array() ) {
 			return $this->getCommand( 'GetEntityTypes', array(
+				'page'    => $page,
 				'filters' => $filters,
 			) )->execute();
 		}
 
+		/**
+		 * Get and Entity Type by id
+		 *
+		 * @param int $id
+		 *
+		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityType
+		 */
 		public function getEntityType( $id ) {
 			return $this->getCommand( 'GetEntityType', array(
 				'entity_type_id' => $id,
 			) )->execute();
 		}
 
+		/**
+		 * Delete an Entity Type
+		 *
+		 * @param int $id
+		 *
+		 * @return mixed
+		 */
 		public function deleteEntityType( $id ) {
 			return $this->getCommand( 'DeleteEntityType', array(
 				'entity_type_id' => $id,
 			) )->execute();
 		}
 
+		/**
+		 * Create an Entity Type
+		 *
+		 * @param EntityType $entityType
+		 *
+		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityType
+		 */
 		public function createEntityType( EntityType $entityType ) {
 			return $this->getCommand( 'CreateEntityType', array(
 				'entity_type' => $entityType,
 			) )->execute();
 		}
 
+		/**
+		 * Update and Entity Type
+		 *
+		 * @param EntityType $entityType
+		 *
+		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityType
+		 */
 		public function updateEntityType( EntityType $entityType ) {
 			return $this->getCommand( 'UpdateEntityType', array(
 				'entity_type_id' => $entityType->id,
