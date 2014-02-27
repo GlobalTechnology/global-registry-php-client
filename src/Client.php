@@ -54,13 +54,11 @@
 		 * @return \GlobalTechnology\GlobalRegistry\Model\Entity
 		 */
 		public function createEntity( \GlobalTechnology\GlobalRegistry\Model\Entity $entity ) {
-			$command = $this->getCommand( 'CreateEntity', array(
-				'entity_type' => $entity->type,
-				'entity'      => array(
+			return $this->getCommand( 'CreateEntity', array(
+				'entity' => array(
 					$entity->type => $entity,
 				),
-			) );
-			return $this->execute( $command );
+			) )->execute();
 		}
 
 		/**
@@ -71,46 +69,38 @@
 		 * @return \GlobalTechnology\GlobalRegistry\Model\Entity
 		 */
 		public function updateEntity( \GlobalTechnology\GlobalRegistry\Model\Entity $entity ) {
-			$command = $this->getCommand( 'UpdateEntity', array(
-				'entity_id'   => $entity->id,
-				'entity_type' => $entity->type,
-				'entity'      => array(
+			return $this->getCommand( 'UpdateEntity', array(
+				'entity_id' => $entity->id,
+				'entity'    => array(
 					$entity->type => $entity,
 				)
-			) );
-			return $this->execute( $command );
+			) )->execute();
 		}
 
 		/**
 		 * Fetch an existing Entity by id
 		 *
-		 * @param int    $id
-		 * @param string $type
+		 * @param int $id
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\Entity
 		 */
-		public function getEntity( $id, $type ) {
-			$command = $this->getCommand( 'GetEntity', array(
-				'entity_id'   => $id,
-				'entity_type' => $type,
-			) );
-			return $this->execute( $command );
+		public function getEntity( $id ) {
+			return $this->getCommand( 'GetEntity', array(
+				'entity_id' => $id,
+			) )->execute();
 		}
 
 		/**
 		 * Delete an existing Entity
 		 *
 		 * @param int    $id
-		 * @param string $type
 		 *
 		 * @return array|\Guzzle\Http\Message\Response
 		 */
-		public function deleteEntity( $id, $type ) {
-			$command = $this->getCommand( 'DeleteEntity', array(
+		public function deleteEntity( $id ) {
+			return $this->getCommand( 'DeleteEntity', array(
 				'entity_id'   => $id,
-				'entity_type' => $type,
-			) );
-			return $this->execute( $command );
+			) )->execute();
 		}
 
 		/**
@@ -123,12 +113,11 @@
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 		 */
 		public function getEntities( $type, $page = 1, $filters = array() ) {
-			$command = $this->getCommand( 'SearchEntities', array(
+			return $this->getCommand( 'GetEntities', array(
 				'entity_type' => $type,
 				'page'        => $page,
 				'filters'     => $filters,
-			) );
-			return $this->execute( $command );
+			) )->execute();
 		}
 
 		/*****************************************************

@@ -7,18 +7,47 @@
  */
 return array(
 	'operations' => array(
-		'Entities'       => array(
-			'uri'        => '/entities',
-			'parameters' => array(
+		'GetEntities'  => array(
+			'uri'           => '/entities',
+			'httpMethod'    => 'GET',
+			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityCollection',
+			'parameters'    => array(
 				'entity_type' => array(
 					'type'     => 'string',
 					'location' => 'query',
 					'required' => true,
 				),
+				'filters'     => array(
+					'type'     => 'array',
+					'location' => 'query',
+					'required' => false,
+				),
+				'page'        => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
+			)
+		),
+		'GetEntity'    => array(
+			'httpMethod'    => 'GET',
+			'uri'           => '/entities/{entity_id}',
+			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
+			'parameters'    => array(
+				'entity_id' => array(
+					'type'     => 'integer',
+					'required' => true,
+					'location' => 'uri',
+				),
 			),
 		),
-		'CreateEntity'   => array(
-			'extends'       => 'Entities',
+		'DeleteEntity' => array(
+			'extends'      => 'GetEntity',
+			'httpMethod'   => 'DELETE',
+			'responseType' => 'primitive',
+		),
+		'CreateEntity' => array(
+			'uri'           => '/entities',
 			'httpMethod'    => 'POST',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
@@ -29,7 +58,7 @@ return array(
 				),
 			),
 		),
-		'UpdateEntity'   => array(
+		'UpdateEntity' => array(
 			'extends'       => 'CreateEntity',
 			'httpMethod'    => 'PUT',
 			'uri'           => '/entities/{entity_id}/',
@@ -41,41 +70,6 @@ return array(
 					'location' => 'uri',
 				),
 			),
-		),
-		'GetEntity'      => array(
-			'extends'       => 'Entities',
-			'httpMethod'    => 'GET',
-			'uri'           => '/entities/{entity_id}/',
-			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
-			'parameters'    => array(
-				'entity_id' => array(
-					'type'     => 'integer',
-					'required' => true,
-					'location' => 'uri',
-				),
-			),
-		),
-		'DeleteEntity'   => array(
-			'extends'      => 'GetEntity',
-			'httpMethod'   => 'DELETE',
-			'responseType' => 'primitive',
-		),
-		'SearchEntities' => array(
-			'extends'       => 'Entities',
-			'httpMethod'    => 'GET',
-			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityCollection',
-			'parameters'    => array(
-				'filters' => array(
-					'type'     => 'array',
-					'location' => 'query',
-					'required' => false,
-				),
-				'page'    => array(
-					'type'     => 'integer',
-					'location' => 'query',
-					'required' => false,
-				),
-			)
 		),
 	),
 );

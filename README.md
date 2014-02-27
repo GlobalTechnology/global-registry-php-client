@@ -57,14 +57,14 @@ $entity = $client->createEntity( new \GlobalTechnology\GlobalRegistry\Model\Enti
 ) ) );
 
 // Get an Entity
-$entity = $client->getEntity( 7178632, 'person' );
+$entity = $client->getEntity( 7178632 );
 
 // Update an Entity
 $entity->last_name = 'TestUser';
 $entity = $client->updateEntity( $entity );
 
 // Delete an Entity
-$client->deleteEntity( $entity->id, $entity->type );
+$client->deleteEntity( $entity->id );
 
 // Search for Entities
 $entities = $client->getEntities( 'person', /*page*/ 1, array( 'first_name' => 'john', 'address' => array( 'country' => 'UK' ) ) );
