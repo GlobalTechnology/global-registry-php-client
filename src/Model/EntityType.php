@@ -13,6 +13,9 @@
 
 		public static function fromCommand( OperationCommand $command ) {
 			$json = $command->getResponse()->json();
+			if ( $json == null || ! array_key_exists( self::JSON_ENTITY_TYPE, $json ) ) {
+				throw new ClientErrorResponseException();
+			}
 			return new self( $json[ self::JSON_ENTITY_TYPE ] );
 		}
 

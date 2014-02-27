@@ -1,4 +1,5 @@
 <?php namespace GlobalTechnology\GlobalRegistry\Model {
+	use Guzzle\Http\Exception\ClientErrorResponseException;
 	use Guzzle\Service\Command\ResponseClassInterface;
 	use Guzzle\Service\Command\OperationCommand;
 
@@ -14,8 +15,7 @@
 		public static function fromCommand( OperationCommand $command ) {
 			$json = $command->getResponse()->json();
 			if ( $json == null || ! array_key_exists( self::JSON_ENTITY, $json ) ) {
-				//TODO throw Exception
-				return null;
+				throw new ClientErrorResponseException();
 			}
 			// Response should always contains root of 'entity'
 			$entity      = $json[ self::JSON_ENTITY ];
