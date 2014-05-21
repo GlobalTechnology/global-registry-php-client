@@ -11,5 +11,7 @@ return array(
 	'includes' => array(
 		'endpoints/entities.php',
 		'endpoints/entity-types.php',
+//		'endpoints/measurements.php',
+//		'endpoints/measurement-types.php',
 	),
 );

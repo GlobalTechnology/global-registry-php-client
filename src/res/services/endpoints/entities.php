@@ -8,7 +8,7 @@
 return array(
 	'operations' => array(
 		'GetEntities'  => array(
-			'uri'           => '/entities',
+			'uri'           => 'entities',
 			'httpMethod'    => 'GET',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityCollection',
 			'parameters'    => array(
@@ -31,7 +31,7 @@ return array(
 		),
 		'GetEntity'    => array(
 			'httpMethod'    => 'GET',
-			'uri'           => '/entities/{entity_id}',
+			'uri'           => 'entities/{entity_id}',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
 				'entity_id' => array(
@@ -47,7 +47,7 @@ return array(
 			'responseType' => 'primitive',
 		),
 		'CreateEntity' => array(
-			'uri'           => '/entities',
+			'uri'           => 'entities',
 			'httpMethod'    => 'POST',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
@@ -61,7 +61,7 @@ return array(
 		'UpdateEntity' => array(
 			'extends'       => 'CreateEntity',
 			'httpMethod'    => 'PUT',
-			'uri'           => '/entities/{entity_id}/',
+			'uri'           => 'entities/{entity_id}/',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
 				'entity_id' => array(

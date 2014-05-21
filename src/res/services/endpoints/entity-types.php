@@ -8,7 +8,7 @@
 return array(
 	'operations' => array(
 		'GetEntityTypes'   => array(
-			'uri'           => '/entity_types',
+			'uri'           => 'entity_types',
 			'httpMethod'    => 'GET',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityTypeCollection',
 			'parameters'    => array(
@@ -25,7 +25,7 @@ return array(
 			),
 		),
 		'GetEntityType'    => array(
-			'uri'           => '/entity_types/{entity_type_id}',
+			'uri'           => 'entity_types/{entity_type_id}',
 			'httpMethod'    => 'GET',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityType',
 			'parameters'    => array(
@@ -42,7 +42,7 @@ return array(
 			'responseType' => 'primitive',
 		),
 		'CreateEntityType' => array(
-			'uri'           => '/entity_types',
+			'uri'           => 'entity_types',
 			'httpMethod'    => 'POST',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityType',
 			'parameters'    => array(
