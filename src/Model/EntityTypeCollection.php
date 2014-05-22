@@ -10,7 +10,7 @@
 		public $page;
 		public $total_pages;
 
-		public static function fromJSON( $json = null ) {
+		public static function fromJSON( array $json = null ) {
 			return new EntityTypeCollection( $json[ self::JSON_ENTITY_TYPES ], $json[ self::JSON_META ] );
 		}
 
