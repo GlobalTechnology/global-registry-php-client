@@ -67,12 +67,11 @@ $entity = $client->updateEntity( $entity );
 $client->deleteEntity( $entity->id );
 
 // Search for Entities
-$entities = $client->getEntities( 'person', /*page*/ 1, array( 'first_name' => 'john', 'address' => array( 'country' => 'UK' ) ) );
+$entities = $client->getEntities( 'person', array( 'first_name' => 'john', 'address' => array( 'country' => 'UK' ) ) );
 // $entities instanceof \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 foreach( $entities as $entity ) {
 	echo "{$entity->first_name} {$entity->last_name}";
 }
-// This will get simplified in the future
-if( $entities->total > $entities->to )
-	$entities = $client->getEntities( 'person', $entities->page + 1, array( ... ) );
+if($entities->hasMore())
+	$entities = $entities->nextPage();
 ```

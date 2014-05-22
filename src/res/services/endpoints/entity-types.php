@@ -12,12 +12,17 @@ return array(
 			'httpMethod'    => 'GET',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityTypeCollection',
 			'parameters'    => array(
-				'filters' => array(
+				'filters'  => array(
 					'type'     => 'array',
 					'location' => 'query',
 					'required' => false,
 				),
-				'page'        => array(
+				'page'     => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
+				'per_page' => array(
 					'type'     => 'integer',
 					'location' => 'query',
 					'required' => false,

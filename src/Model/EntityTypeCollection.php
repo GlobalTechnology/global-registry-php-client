@@ -8,6 +8,7 @@
 		public $from;
 		public $to;
 		public $page;
+		public $total_pages;
 
 		public static function fromJSON( $json = null ) {
 			return new EntityTypeCollection( $json[ self::JSON_ENTITY_TYPES ], $json[ self::JSON_META ] );
@@ -18,9 +19,9 @@
 			foreach ( $entityTypes as $entityType ) {
 				// Add entityType to the collection if its already a Model
 				if ( $entityType instanceof EntityType )
-					$this->collection[ ] = $entityType;
+					$this->data[ ] = $entityType;
 				else
-					$this->collection[ ] = new EntityType( $entityType );
+					$this->data[ ] = new EntityType( $entityType );
 			}
 			foreach ( $meta as $name => $value ) {
 				$this->$name = $value;

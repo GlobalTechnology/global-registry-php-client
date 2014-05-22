@@ -5,7 +5,10 @@
 
 	class Entity implements ResponseClassInterface, \JsonSerializable {
 
-		const JSON_ENTITY = 'entity';
+		const JSON_ENTITY        = 'entity';
+		const FIELD_ID           = 'id';
+		const FIELD_CLIENT_ID    = 'client_integration_id';
+		const FIELD_RELATIONSHIP = ':relationship';
 
 		public $type;
 		public $id;
@@ -17,7 +20,7 @@
 			if ( $json == null || ! array_key_exists( self::JSON_ENTITY, $json ) ) {
 				throw new ClientErrorResponseException();
 			}
-			// Response should always contains root of 'entity'
+			// Response should always contain root of 'entity'
 			$entity      = $json[ self::JSON_ENTITY ];
 			$entity_type = array_keys( $entity )[ 0 ];
 			return new self( $entity_type, $entity[ $entity_type ] );
@@ -28,15 +31,20 @@
 			$this->type = $type;
 			foreach ( $data as $name => $value ) {
 				switch ( $name ) {
-					case "id":
-					case "client_integration_id":
+					case self::FIELD_ID:
+					case self::FIELD_CLIENT_ID:
 						$this->$name = $value;
 						break;
 					default:
-						if ( is_array( $value ) )
-							$this->data[ $name ] = new Entity( $name, $value );
-						else
-							$this->data[ $name ] = $value;
+						if ( $this->isRelationship( $name ) ) {
+							$this->data[ $name ] = new RelationshipCollection( $value );
+						}
+						else {
+							if ( is_array( $value ) )
+								$this->data[ $name ] = new Entity( $name, $value );
+							else
+								$this->data[ $name ] = $value;
+						}
 				}
 			}
 		}
@@ -65,13 +73,18 @@
 		public function jsonSerialize() {
 			$data = array();
 			if ( isset( $this->id ) )
-				$data[ 'id' ] = $this->id;
+				$data[ self::FIELD_ID ] = $this->id;
 			if ( isset( $this->client_integration_id ) )
-				$data[ 'client_integration_id' ] = $this->client_integration_id;
+				$data[ self::FIELD_CLIENT_ID ] = $this->client_integration_id;
 			foreach ( $this->data as $name => $value ) {
 				$data[ $name ] = $value;
 			}
 			return $data;
+		}
+
+		private function isRelationship( $key ) {
+			$length = strlen( self::FIELD_RELATIONSHIP );
+			return ( substr( $key, - $length ) === self::FIELD_RELATIONSHIP );
 		}
 	}
 }

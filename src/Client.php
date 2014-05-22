@@ -1,4 +1,5 @@
 <?php namespace GlobalTechnology\GlobalRegistry {
+	use GlobalTechnology\GlobalRegistry\Http\QueryAggregator\MixedArrayAggregator;
 	use GlobalTechnology\GlobalRegistry\Model\EntityType;
 	use Guzzle\Common\Collection;
 	use Guzzle\Common\Exception\InvalidArgumentException;
@@ -107,17 +108,21 @@
 		 * Search for Entities
 		 *
 		 * @param string $type
-		 * @param int    $page
 		 * @param array  $filters
+		 * @param int    $page
+		 * @param int    $perPage
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 		 */
-		public function getEntities( $type, $page = 1, $filters = array() ) {
-			return $this->getCommand( 'GetEntities', array(
+		public function getEntities( $type, $filters = array(), $page = 1, $perPage = 100 ) {
+			$command = $this->getCommand( 'GetEntities', array(
 				'entity_type' => $type,
-				'page'        => $page,
 				'filters'     => $filters,
-			) )->execute();
+				'page'        => $page,
+				'per_page'    => $perPage,
+			) );
+			$command->prepare()->getQuery()->setAggregator(new MixedArrayAggregator());
+			return $this->execute($command);
 		}
 
 		/*****************************************************
@@ -127,16 +132,20 @@
 		/**
 		 * Get Entity Types
 		 *
-		 * @param int   $page
 		 * @param array $filters
+		 * @param int   $page
+		 * @param int   $perPage
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityTypeCollection
 		 */
-		public function getEntityTypes( $page = 1, $filters = array() ) {
-			return $this->getCommand( 'GetEntityTypes', array(
-				'page'    => $page,
-				'filters' => $filters,
-			) )->execute();
+		public function getEntityTypes( $filters = array(), $page = 1, $perPage = 100 ) {
+			$command = $this->getCommand( 'GetEntityTypes', array(
+				'page'     => $page,
+				'filters'  => $filters,
+				'per_page' => $perPage,
+			) );
+			$command->prepare()->getQuery()->setAggregator(new MixedArrayAggregator());
+			return $this->execute($command);
 		}
 
 		/**
