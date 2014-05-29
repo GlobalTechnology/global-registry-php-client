@@ -82,6 +82,28 @@
 			return $data;
 		}
 
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function hasRelationship( $name ) {
+			$key = $this->isRelationship( $name ) ? $name : $name . self::FIELD_RELATIONSHIP;
+			return isset( $this->$key ) && $this->$key instanceof RelationshipCollection;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return null|RelationshipCollection
+		 */
+		public function getRelationship( $name ) {
+			$key = $this->isRelationship( $name ) ? $name : $name . self::FIELD_RELATIONSHIP;
+			if( $this->hasRelationship( $key))
+				return $this->$key;
+			return null;
+		}
+
 		private function isRelationship( $key ) {
 			$length = strlen( self::FIELD_RELATIONSHIP );
 			return ( substr( $key, - $length ) === self::FIELD_RELATIONSHIP );
