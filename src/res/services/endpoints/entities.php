@@ -40,7 +40,8 @@ return array(
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
 				'entity_id' => array(
-					'type'     => 'integer',
+					'type'     => 'string',
+					'pattern'  => \GlobalTechnology\GlobalRegistry\Client::REGEX_UUID,
 					'required' => true,
 					'location' => 'uri',
 				),
@@ -70,7 +71,8 @@ return array(
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
 			'parameters'    => array(
 				'entity_id' => array(
-					'type'     => 'integer',
+					'type'     => 'string',
+					'pattern'  => \GlobalTechnology\GlobalRegistry\Client::REGEX_UUID,
 					'required' => true,
 					'location' => 'uri',
 				),

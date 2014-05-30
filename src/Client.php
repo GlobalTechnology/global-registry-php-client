@@ -6,6 +6,8 @@
 	use Guzzle\Service\Description\ServiceDescription;
 
 	class Client extends \Guzzle\Service\Client {
+		const REGEX_UUID = '/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i';
+
 		/**
 		 * Required Client Factory Options
 		 * @var array
@@ -81,26 +83,26 @@
 		/**
 		 * Fetch an existing Entity by id
 		 *
-		 * @param int $id
+		 * @param string $uuid
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\Entity
 		 */
-		public function getEntity( $id ) {
+		public function getEntity( $uuid ) {
 			return $this->getCommand( 'GetEntity', array(
-				'entity_id' => $id,
+				'entity_id' => $uuid,
 			) )->execute();
 		}
 
 		/**
 		 * Delete an existing Entity
 		 *
-		 * @param int $id
+		 * @param string $uuid
 		 *
 		 * @return array|\Guzzle\Http\Message\Response
 		 */
-		public function deleteEntity( $id ) {
+		public function deleteEntity( $uuid ) {
 			return $this->getCommand( 'DeleteEntity', array(
-				'entity_id' => $id,
+				'entity_id' => $uuid,
 			) )->execute();
 		}
 
@@ -151,26 +153,26 @@
 		/**
 		 * Get and Entity Type by id
 		 *
-		 * @param int $id
+		 * @param string $uuid
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityType
 		 */
-		public function getEntityType( $id ) {
+		public function getEntityType( $uuid ) {
 			return $this->getCommand( 'GetEntityType', array(
-				'entity_type_id' => $id,
+				'entity_type_id' => $uuid,
 			) )->execute();
 		}
 
 		/**
 		 * Delete an Entity Type
 		 *
-		 * @param int $id
+		 * @param string $uuid
 		 *
 		 * @return mixed
 		 */
-		public function deleteEntityType( $id ) {
+		public function deleteEntityType( $uuid ) {
 			return $this->getCommand( 'DeleteEntityType', array(
-				'entity_type_id' => $id,
+				'entity_type_id' => $uuid,
 			) )->execute();
 		}
 

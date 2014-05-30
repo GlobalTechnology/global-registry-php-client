@@ -35,7 +35,8 @@ return array(
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityType',
 			'parameters'    => array(
 				'entity_type_id' => array(
-					'type'     => 'integer',
+					'type'     => 'string',
+					'pattern'  => \GlobalTechnology\GlobalRegistry\Client::REGEX_UUID,
 					'location' => 'uri',
 					'required' => true,
 				),
