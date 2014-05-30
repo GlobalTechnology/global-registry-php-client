@@ -13,27 +13,10 @@
 				if ( $entity instanceof Entity )
 					$this->data[ ] = $entity;
 				else {
-					$type                = array_keys( $entity )[ 0 ];
+					$type          = array_keys( $entity )[ 0 ];
 					$this->data[ ] = new Entity( $type, $entity[ $type ] );
 				}
 			}
-		}
-
-		public function hasMore() {
-			return ( $this->page && $this->total_pages && $this->page < $this->total_pages );
-		}
-
-		/**
-		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection|null
-		 */
-		public function nextPage() {
-			return $this->hasMore() ?
-				$this->command->getClient()->getEntities(
-					$this->command->get( 'entity_type' ),
-					$this->command->get( 'filters' ),
-					$this->page + 1,
-					$this->command->get( 'per_page' )
-				) : null;
 		}
 	}
 }

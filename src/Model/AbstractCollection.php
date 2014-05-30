@@ -31,6 +31,24 @@
 			return $response;
 		}
 
+		public function hasMore() {
+			return ( $this->page && $this->total_pages && $this->page < $this->total_pages );
+		}
+
+		/**
+		 * @return \GlobalTechnology\GlobalRegistry\Model\AbstractCollection|null
+		 */
+		public function nextPage() {
+			if ( ! is_null( $this->command ) && $this->hasMore() ) {
+				// build & execute a new command
+				$args           = $this->command->getAll();
+				$args[ 'page' ] = $this->page + 1;
+				return $this->command->getClient()->getCommand( $this->command->getName(), $args )->execute();
+			}
+
+			return null;
+		}
+
 		/**
 		 * @return \ArrayIterator|\Traversable
 		 */
