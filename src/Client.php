@@ -1,4 +1,5 @@
 <?php namespace GlobalTechnology\GlobalRegistry {
+	use GlobalTechnology\GlobalRegistry\Http\Plugin\QueryAggregatorPlugin;
 	use GlobalTechnology\GlobalRegistry\Http\QueryAggregator\MixedArrayAggregator;
 	use GlobalTechnology\GlobalRegistry\Model\EntityType;
 	use Guzzle\Common\Collection;
@@ -39,6 +40,7 @@
 			$client->setDefaultOption( 'headers/Authorization', "Bearer {$config['access_token']}" );
 			$client->setDefaultOption( 'headers/Accept', 'application/json' );
 			$client->setDescription( ServiceDescription::factory( dirname( __FILE__ ) . '/res/services/global-registry.php' ) );
+			$client->addSubscriber( new QueryAggregatorPlugin( new MixedArrayAggregator() ) );
 
 			return $client;
 		}
@@ -116,15 +118,13 @@
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection
 		 */
-		public function getEntities( $type, $filters = array(), $page = 1, $perPage = 100 ) {
-			$command = $this->getCommand( 'GetEntities', array(
+		public function getEntities( $type, array $filters = array(), $page = 1, $perPage = 100 ) {
+			return $this->getCommand( 'GetEntities', array(
 				'entity_type' => $type,
 				'filters'     => $filters,
 				'page'        => $page,
 				'per_page'    => $perPage,
-			) );
-			$command->prepare()->getQuery()->setAggregator(new MixedArrayAggregator());
-			return $this->execute($command);
+			) )->execute();
 		}
 
 		/*****************************************************
@@ -140,14 +140,12 @@
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityTypeCollection
 		 */
-		public function getEntityTypes( $filters = array(), $page = 1, $perPage = 100 ) {
-			$command = $this->getCommand( 'GetEntityTypes', array(
+		public function getEntityTypes( array $filters = array(), $page = 1, $perPage = 100 ) {
+			return $this->getCommand( 'GetEntityTypes', array(
 				'page'     => $page,
 				'filters'  => $filters,
 				'per_page' => $perPage,
-			) );
-			$command->prepare()->getQuery()->setAggregator(new MixedArrayAggregator());
-			return $this->execute($command);
+			) )->execute();
 		}
 
 		/**
@@ -209,13 +207,11 @@
 		 *
 		 * @return \GlobalTechnology\GlobalRegistry\Model\MeasurementType
 		 */
-		public function getMeasurementType( $uuid, $filters = array() ) {
-			$command = $this->getCommand( 'GetMeasurementType', array(
+		public function getMeasurementType( $uuid, array $filters = array() ) {
+			return $this->getCommand( 'GetMeasurementType', array(
 				'measurement_type_id' => $uuid,
 				'filters'             => $filters,
-			) );
-			$command->prepare()->getQuery()->setAggregator( new MixedArrayAggregator() );
-			return $command->execute();
+			) )->execute();
 		}
 	}
 }
