@@ -6,6 +6,28 @@
  */
 return array(
 	'operations' => array(
+		'GetMeasurementTypes' => array(
+			'uri'           => 'measurement_types',
+			'httpMethod'    => 'GET',
+			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\MeasurementTypeCollection',
+			'parameters'    => array(
+				'filters'  => array(
+					'type'     => 'array',
+					'location' => 'query',
+					'required' => false,
+				),
+				'page'     => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
+				'per_page' => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
+			),
+		),
 		'GetMeasurementType' => array(
 			'uri'           => 'measurement_types/{measurement_type_id}',
 			'httpMethod'    => 'GET',

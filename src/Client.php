@@ -213,5 +213,13 @@
 				'filters'             => $filters,
 			) )->execute();
 		}
+
+		public function getMeasurementTypes( array $filters = array(), $page = 1, $perPage = 25 ) {
+			return $this->getCommand( 'GetMeasurementTypes', array(
+				'filters'  => $filters,
+				'page'     => $page,
+				'per_page' => $perPage,
+			) )->execute();
+		}
 	}
 }
