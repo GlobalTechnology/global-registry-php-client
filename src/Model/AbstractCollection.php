@@ -3,12 +3,19 @@
 	use Guzzle\Service\Command\OperationCommand;
 
 	abstract class AbstractCollection implements ResponseClassInterface, \IteratorAggregate, \Countable {
+		const JSON_META         = 'meta';
 
 		protected $data;
 		/**
 		 * @var OperationCommand
 		 */
 		protected $command = null;
+
+		public $total;
+		public $from;
+		public $to;
+		public $page;
+		public $total_pages;
 
 		abstract public static function fromJSON( array $json = null );
 
@@ -31,8 +38,11 @@
 			return new \ArrayIterator( $this->data );
 		}
 
-		protected function __construct( array $data = array() ) {
+		protected function __construct( array $data = array(), array $meta = array() ) {
 			$this->data = $data;
+			foreach ( $meta as $name => $value ) {
+				$this->$name = $value;
+			}
 		}
 
 		public function count() {
