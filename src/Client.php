@@ -203,5 +203,19 @@
 			) )->execute();
 		}
 
+		/**
+		 * @param string $uuid
+		 * @param array  $filters
+		 *
+		 * @return \GlobalTechnology\GlobalRegistry\Model\MeasurementType
+		 */
+		public function getMeasurementType( $uuid, $filters = array() ) {
+			$command = $this->getCommand( 'GetMeasurementType', array(
+				'measurement_type_id' => $uuid,
+				'filters'             => $filters,
+			) );
+			$command->prepare()->getQuery()->setAggregator( new MixedArrayAggregator() );
+			return $command->execute();
+		}
 	}
 }
