@@ -37,10 +37,9 @@
 						break;
 					case "measurements":
 						$this->measurements = array();
-						//TODO
-//						foreach ( $value as $measurement ) {
-//							$this->measurements[ ] = new Measurement( $measurement );
-//						}
+						foreach ( $value as $measurement ) {
+							$this->measurements[ ] = new Measurement( $this, $measurement );
+						}
 						break;
 				}
 			}
