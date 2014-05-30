@@ -3,7 +3,7 @@
  * This file contains the Service Description for the Global Registry Entity Types endpoint.
  *
  * @see https://github.com/CruGlobal/global_registry/wiki/Entity-Types
- * @see http://guzzle.readthedocs.org/en/latest/webservice-client/guzzle-service-descriptions.html
+ * @see https://guzzle3.readthedocs.org/webservice-client/guzzle-service-descriptions.html
  */
 return array(
 	'operations' => array(
