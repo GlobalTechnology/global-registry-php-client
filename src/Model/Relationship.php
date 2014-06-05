@@ -12,11 +12,21 @@
 
 		public function __construct( array $relationship = array() ) {
 			foreach ( $relationship as $name => $id ) {
-				if ( $name === self::RELATIONSHIP_ENTITY_ID )
-					$this->relationship_id = $id;
-				else {
-					$this->entity_type = $name;
-					$this->entity_id   = $id;
+				switch ($name) {
+					// SBR passes these through from GR, we ignore them.
+					case 'created_by':
+					case 'updated_at':
+					case 'user_entered':
+						break;
+					// Relationship Entity ID
+					case self::RELATIONSHIP_ENTITY_ID:
+						$this->relationship_id = $id;
+						break;
+					// Entity Type and ID
+					default:
+						$this->entity_type = $name;
+						$this->entity_id   = $id;
+						break;
 				}
 			}
 		}
