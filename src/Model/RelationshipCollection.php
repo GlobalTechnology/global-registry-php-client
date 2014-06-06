@@ -1,6 +1,6 @@
 <?php namespace GlobalTechnology\GlobalRegistry\Model {
 
-	class RelationshipCollection implements \IteratorAggregate, \ArrayAccess, \Countable {
+	class RelationshipCollection implements \IteratorAggregate, \ArrayAccess, \Countable, \JsonSerializable {
 
 		/**
 		 * @var array
@@ -42,6 +42,14 @@
 
 		public function offsetUnset( $offset ) {
 			unset( $this->data[ $offset ] );
+		}
+
+		public function jsonSerialize() {
+			$data = array();
+			/** @var Relationship $relationship */
+			foreach( $this as $relationship )
+				$data[] = $relationship->entity_id;
+			return $data;
 		}
 
 	}
