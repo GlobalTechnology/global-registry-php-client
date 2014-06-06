@@ -99,7 +99,7 @@
 		 */
 		public function getRelationship( $name ) {
 			$key = $this->isRelationship( $name ) ? $name : $name . self::FIELD_RELATIONSHIP;
-			if( $this->hasRelationship( $key))
+			if ( $this->hasRelationship( $key ) )
 				return $this->$key;
 			return null;
 		}

@@ -45,11 +45,7 @@
 		}
 
 		public function jsonSerialize() {
-			$data = array();
-			/** @var Relationship $relationship */
-			foreach( $this as $relationship )
-				$data[] = $relationship->entity_id;
-			return $data;
+			return ( count( $this ) <= 0 ) ? array() : $this->data;
 		}
 
 	}

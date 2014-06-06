@@ -2,17 +2,19 @@
 
 	use GlobalTechnology\GlobalRegistry\Client;
 
-	class Relationship {
+	class Relationship implements \JsonSerializable {
 
 		const RELATIONSHIP_ENTITY_ID = 'relationship_entity_id';
+		const CLIENT_INTEGRATION_ID  = 'client_integration_id';
 
 		public $entity_type;
 		public $entity_id;
 		public $relationship_id;
+		public $client_integration_id;
 
 		public function __construct( array $relationship = array() ) {
 			foreach ( $relationship as $name => $id ) {
-				switch ($name) {
+				switch ( $name ) {
 					// SBR passes these through from GR, we ignore them.
 					case 'created_by':
 					case 'updated_at':
@@ -22,6 +24,9 @@
 					case self::RELATIONSHIP_ENTITY_ID:
 						$this->relationship_id = $id;
 						break;
+					case self::CLIENT_INTEGRATION_ID:
+						$this->client_integration_id = $id;
+						break;
 					// Entity Type and ID
 					default:
 						$this->entity_type = $name;
@@ -29,6 +34,15 @@
 						break;
 				}
 			}
+		}
+
+		public function jsonSerialize() {
+			$data = array(
+				$this->entity_type => $this->entity_id,
+			);
+			if ( isset( $this->client_integration_id ) )
+				$data[ self::CLIENT_INTEGRATION_ID ] = $this->client_integration_id;
+			return $data;
 		}
 
 		/**
