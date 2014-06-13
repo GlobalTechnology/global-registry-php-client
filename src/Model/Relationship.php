@@ -24,8 +24,12 @@
 					case self::RELATIONSHIP_ENTITY_ID:
 						$this->relationship_id = $id;
 						break;
+					// Client Integration ID - this can be an array when SBR passes through filters[owned_by]=all
 					case self::CLIENT_INTEGRATION_ID:
-						$this->client_integration_id = $id;
+						if ( is_array( $id ) )
+							$this->client_integration_id = array_key_exists( 'value', $id ) ? $id[ 'value' ] : null;
+						else
+							$this->client_integration_id = $id;
 						break;
 					// Entity Type and ID
 					default:
