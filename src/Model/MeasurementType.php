@@ -38,7 +38,7 @@
 					case "measurements":
 						$this->measurements = array();
 						foreach ( $value as $measurement ) {
-							$this->measurements[ ] = new Measurement( $this, $measurement );
+							$this->measurements[ ] = new Measurement( $measurement );
 						}
 						break;
 				}
