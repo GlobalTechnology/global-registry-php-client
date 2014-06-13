@@ -116,7 +116,7 @@
 		 * @param int    $page
 		 * @param int    $perPage
 		 *
-		 * @return \GlobalTechnology\GlobalRegistry\Model\EntityCollection
+		 * @return Model\EntityCollection
 		 */
 		public function getEntities( $type, array $filters = array(), $page = 1, $perPage = 100 ) {
 			return $this->getCommand( 'GetEntities', array(
@@ -125,6 +125,28 @@
 				'page'        => $page,
 				'per_page'    => $perPage,
 			) )->execute();
+		}
+
+		/**
+		 * Search for Entities using a SBR RuleSet
+		 *
+		 * @param string|int $ruleset
+		 * @param array      $filters
+		 * @param string     $type
+		 * @param int        $page
+		 * @param int        $perPage
+		 *
+		 * @return Model\EntityCollection
+		 */
+		public function getEntitiesUsingRuleSet( $ruleset, array $filters = array(), $type = null, $page = null, $perPage = null ) {
+			$parameters = array(
+				'ruleset' => $ruleset,
+				'filters' => $filters,
+			);
+			if ( $type !== null ) $parameters[ 'entity_type' ] = $type;
+			if ( $page !== null ) $parameters[ 'page' ] = $page;
+			if ( $perPage !== null ) $parameters[ 'per_page' ] = $perPage;
+			return $this->getCommand( 'GetEntitiesWithRuleSet', $parameters )->execute();
 		}
 
 		/*****************************************************

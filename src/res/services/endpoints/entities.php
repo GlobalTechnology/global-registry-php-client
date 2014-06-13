@@ -7,34 +7,54 @@
  */
 return array(
 	'operations' => array(
-		'GetEntities'  => array(
+		'__Abstract_GetEntities' => array(
 			'uri'           => 'entities',
 			'httpMethod'    => 'GET',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\EntityCollection',
 			'parameters'    => array(
-				'entity_type' => array(
-					'type'     => 'string',
-					'location' => 'query',
-					'required' => true,
-				),
-				'filters'     => array(
+				'filters'  => array(
 					'type'     => 'array',
 					'location' => 'query',
 					'required' => false,
 				),
-				'page'        => array(
+				'page'     => array(
 					'type'     => 'integer',
 					'location' => 'query',
 					'required' => false,
 				),
-				'per_page'    => array(
+				'per_page' => array(
 					'type'     => 'integer',
 					'location' => 'query',
 					'required' => false,
 				),
 			)
 		),
-		'GetEntity'    => array(
+		'GetEntities'            => array(
+			'extends'    => '__Abstract_GetEntities',
+			'parameters' => array(
+				'entity_type' => array(
+					'type'     => 'string',
+					'location' => 'query',
+					'required' => true,
+				),
+			),
+		),
+		'GetEntitiesWithRuleSet' => array(
+			'extends'    => '__Abstract_GetEntities',
+			'parameters' => array(
+				'ruleset'     => array(
+					'type'     => array( 'string', 'integer' ),
+					'location' => 'query',
+					'required' => true,
+				),
+				'entity_type' => array(
+					'type'     => 'string',
+					'location' => 'query',
+					'required' => false,
+				),
+			),
+		),
+		'GetEntity'              => array(
 			'httpMethod'    => 'GET',
 			'uri'           => 'entities/{entity_id}',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
@@ -47,12 +67,12 @@ return array(
 				),
 			),
 		),
-		'DeleteEntity' => array(
+		'DeleteEntity'           => array(
 			'extends'      => 'GetEntity',
 			'httpMethod'   => 'DELETE',
 			'responseType' => 'primitive',
 		),
-		'CreateEntity' => array(
+		'CreateEntity'           => array(
 			'uri'           => 'entities',
 			'httpMethod'    => 'POST',
 			'responseClass' => 'GlobalTechnology\\GlobalRegistry\\Model\\Entity',
@@ -64,7 +84,7 @@ return array(
 				),
 			),
 		),
-		'UpdateEntity' => array(
+		'UpdateEntity'           => array(
 			'extends'       => 'CreateEntity',
 			'httpMethod'    => 'PUT',
 			'uri'           => 'entities/{entity_id}/',
