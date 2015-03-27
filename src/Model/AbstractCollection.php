@@ -11,10 +11,36 @@
 		 */
 		protected $command = null;
 
+		/**
+		 * @var int
+		 * @deprecated
+		 */
 		public $total;
+
+		/**
+		 * @var int
+		 */
 		public $from;
+
+		/**
+		 * @var int
+		 */
 		public $to;
+
+		/**
+		 * @var int
+		 */
 		public $page;
+
+		/**
+		 * @var bool
+		 */
+		public $next_page;
+
+		/**
+		 * @var int
+		 * @deprecated
+		 */
 		public $total_pages;
 
 		abstract public static function fromJSON( array $json = null );
@@ -31,8 +57,11 @@
 			return $response;
 		}
 
+		/**
+		 * @return bool
+		 */
 		public function hasMore() {
-			return ( $this->page && $this->total_pages && $this->page < $this->total_pages );
+			return ( $this->page && $this->next_page );
 		}
 
 		/**
