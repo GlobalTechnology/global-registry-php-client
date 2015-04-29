@@ -4,6 +4,7 @@
 		public $period;
 		public $value;
 		public $related_entity_id;
+		public $dimension;
 
 		public function __construct( $data ) {
 			foreach ( $data as $name => $value ) {
@@ -12,6 +13,7 @@
 					case "period":
 					case "value":
 					case "related_entity_id":
+					case "dimension":
 						$this->$name = $value;
 						break;
 				}
