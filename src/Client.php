@@ -115,16 +115,23 @@
 		 * @param array  $filters
 		 * @param int    $page
 		 * @param int    $perPage
+		 * @param int    $levels
+		 * @param array  $fields
 		 *
 		 * @return Model\EntityCollection
 		 */
-		public function getEntities( $type, array $filters = array(), $page = 1, $perPage = 100 ) {
-			return $this->getCommand( 'GetEntities', array(
+		public function getEntities( $type, array $filters = array(), $page = null, $perPage = null, $levels = null, array $fields = null ) {
+			$parameters = array(
 				'entity_type' => $type,
 				'filters'     => $filters,
-				'page'        => $page,
-				'per_page'    => $perPage,
-			) )->execute();
+			);
+
+			if ( null !== $page ) $parameters[ 'page' ] = (int)$page;
+			if ( null !== $perPage ) $parameters[ 'perPage' ] = (int)$perPage;
+			if ( null !== $levels ) $parameters[ 'levels' ] = (int)$levels;
+			if ( null !== $fields && ! empty( $fields ) ) $parameters[ 'fields' ] = implode( ',', $fields );
+
+			return $this->getCommand( 'GetEntities', $parameters )->execute();
 		}
 
 		/**
@@ -135,10 +142,12 @@
 		 * @param string     $type
 		 * @param int        $page
 		 * @param int        $perPage
+		 * @param int        $levels
+		 * @param array      $fields
 		 *
 		 * @return Model\EntityCollection
 		 */
-		public function getEntitiesUsingRuleSet( $ruleset, array $filters = array(), $type = null, $page = null, $perPage = null ) {
+		public function getEntitiesUsingRuleSet( $ruleset, array $filters = array(), $type = null, $page = null, $perPage = null, $levels = null, array $fields = null ) {
 			$parameters = array(
 				'ruleset' => $ruleset,
 				'filters' => $filters,
@@ -146,6 +155,9 @@
 			if ( $type !== null ) $parameters[ 'entity_type' ] = $type;
 			if ( $page !== null ) $parameters[ 'page' ] = $page;
 			if ( $perPage !== null ) $parameters[ 'per_page' ] = $perPage;
+			if ( null !== $levels ) $parameters[ 'levels' ] = (int)$levels;
+			if ( null !== $fields && ! empty( $fields ) ) $parameters[ 'fields' ] = implode( ',', $fields );
+
 			return $this->getCommand( 'GetEntitiesWithRuleSet', $parameters )->execute();
 		}
 

@@ -27,7 +27,17 @@ return array(
 					'location' => 'query',
 					'required' => false,
 				),
-			)
+				'levels'   => array(
+					'type'     => 'integer',
+					'location' => 'query',
+					'required' => false,
+				),
+				'fields'   => array(
+					'type'     => 'string',
+					'location' => 'query',
+					'required' => false,
+				),
+			),
 		),
 		'GetEntities'            => array(
 			'extends'    => '__Abstract_GetEntities',
