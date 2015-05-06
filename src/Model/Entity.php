@@ -10,9 +10,9 @@
 		const FIELD_CLIENT_ID    = 'client_integration_id';
 		const FIELD_RELATIONSHIP = ':relationship';
 
-		public $type;
-		public $id;
-		public $client_integration_id;
+		public  $type;
+		public  $id;
+		public  $client_integration_id;
 		private $data;
 
 		public static function fromCommand( OperationCommand $command ) {
@@ -40,8 +40,16 @@
 							$this->data[ $name ] = new RelationshipCollection( $value );
 						}
 						else {
-							if ( is_array( $value ) )
-								$this->data[ $name ] = new Entity( $name, $value );
+							if ( is_array( $value ) ) {
+								if ( $this->isAssociativeArray( $value ) )
+									$this->data[ $name ] = new Entity( $name, $value );
+								else {
+									$this->data[ $name ] = array();
+									foreach ( $value as $index => $item ) {
+										$this->data[ $name ][ ] = new Entity( $name, $item );
+									}
+								}
+							}
 							else
 								$this->data[ $name ] = $value;
 						}
@@ -77,7 +85,11 @@
 			if ( isset( $this->client_integration_id ) )
 				$data[ self::FIELD_CLIENT_ID ] = $this->client_integration_id;
 			foreach ( $this->data as $name => $value ) {
-				$data[ $name ] = $value;
+				// An array of one item should be returned as the entity, not an array
+				if ( is_array( $value ) && 1 === count( $value ) )
+					$data[ $name ] = $value[ 0 ];
+				else
+					$data[ $name ] = $value;
 			}
 			return $data;
 		}
@@ -107,6 +119,10 @@
 		private function isRelationship( $key ) {
 			$length = strlen( self::FIELD_RELATIONSHIP );
 			return ( substr( $key, - $length ) === self::FIELD_RELATIONSHIP );
+		}
+
+		private function isAssociativeArray( array $array ) {
+			return array_keys( $array ) !== range( 0, count( $array ) - 1 );
 		}
 	}
 }
