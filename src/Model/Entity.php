@@ -78,6 +78,24 @@
 			unset( $this->data[ $name ] );
 		}
 
+		public function addEntity( Entity $entity ) {
+			$name = $entity->type;
+			if ( isset( $this->data[ $name ] ) ) {
+				if ( is_array( $this->data[ $name ] ) )
+					$this->data[ $name ][ ] = $entity;
+				else {
+					$array               = array();
+					$array[ ]            = $this->data[ $name ];
+					$array[ ]            = $entity;
+					$this->data[ $name ] = $array;
+				}
+			}
+			else {
+				$this->data[ $name ] = $entity;
+			}
+			return $entity;
+		}
+
 		public function jsonSerialize() {
 			$data = array();
 			if ( isset( $this->id ) )
