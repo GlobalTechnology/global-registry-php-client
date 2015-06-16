@@ -41,12 +41,19 @@
 						}
 						else {
 							if ( is_array( $value ) ) {
+								// Single Entity
 								if ( $this->isAssociativeArray( $value ) )
 									$this->data[ $name ] = new Entity( $name, $value );
+								// Array of Entities or primitives
 								else {
 									$this->data[ $name ] = array();
 									foreach ( $value as $index => $item ) {
-										$this->data[ $name ][ ] = new Entity( $name, $item );
+										// Entity
+										if ( is_array( $item ) )
+											$this->data[ $name ][ ] = new Entity( $name, $item );
+										// Primitive (string, number)
+										else
+											$this->data[ $name ][ ] = $item;
 									}
 								}
 							}
@@ -103,7 +110,7 @@
 			if ( isset( $this->client_integration_id ) )
 				$data[ self::FIELD_CLIENT_ID ] = $this->client_integration_id;
 			foreach ( $this->data as $name => $value ) {
-				// An array of one item should be returned as the entity, not an array
+				// An array of one item should be returned as the entity/primitive, not an array
 				if ( is_array( $value ) && 1 === count( $value ) )
 					$data[ $name ] = $value[ 0 ];
 				else
