@@ -3,11 +3,16 @@
 	class RelationshipCollection implements \IteratorAggregate, \ArrayAccess, \Countable, \JsonSerializable {
 
 		/**
+		 * @type string
+		 */
+		protected $type;
+
+		/**
 		 * @var array
 		 */
 		protected $data;
 
-		public function __construct( array $data = array() ) {
+		public function __construct( $type = null, array $data = array() ) {
 			$this->data = array();
 
 			// Wrap relationship in array if only single
@@ -15,7 +20,7 @@
 				$data = array( $data );
 
 			foreach ( $data as $relationship ) {
-				$this->data[ ] = new Relationship( $relationship );
+				$this->data[ ] = new Relationship( $type, $relationship );
 			}
 		}
 

@@ -1,4 +1,5 @@
 <?php namespace GlobalTechnology\GlobalRegistry\Model {
+
 	use Guzzle\Http\Exception\ClientErrorResponseException;
 	use Guzzle\Service\Command\ResponseClassInterface;
 	use Guzzle\Service\Command\OperationCommand;
@@ -37,7 +38,7 @@
 						break;
 					default:
 						if ( $this->isRelationship( $name ) ) {
-							$this->data[ $name ] = new RelationshipCollection( $value );
+							$this->data[ $name ] = new RelationshipCollection( $this->relationshipType( $name ), $value );
 						}
 						else {
 							if ( is_array( $value ) ) {
@@ -50,10 +51,10 @@
 									foreach ( $value as $index => $item ) {
 										// Entity
 										if ( is_array( $item ) )
-											$this->data[ $name ][ ] = new Entity( $name, $item );
+											$this->data[ $name ][] = new Entity( $name, $item );
 										// Primitive (string, number)
 										else
-											$this->data[ $name ][ ] = $item;
+											$this->data[ $name ][] = $item;
 									}
 								}
 							}
@@ -89,11 +90,11 @@
 			$name = $entity->type;
 			if ( isset( $this->data[ $name ] ) ) {
 				if ( is_array( $this->data[ $name ] ) )
-					$this->data[ $name ][ ] = $entity;
+					$this->data[ $name ][] = $entity;
 				else {
 					$array               = array();
-					$array[ ]            = $this->data[ $name ];
-					$array[ ]            = $entity;
+					$array[]             = $this->data[ $name ];
+					$array[]             = $entity;
 					$this->data[ $name ] = $array;
 				}
 			}
@@ -144,6 +145,11 @@
 		private function isRelationship( $key ) {
 			$length = strlen( self::FIELD_RELATIONSHIP );
 			return ( substr( $key, - $length ) === self::FIELD_RELATIONSHIP );
+		}
+
+		private function relationshipType( $key ) {
+			$length = strlen( self::FIELD_RELATIONSHIP );
+			return substr( $key, 0, - $length );
 		}
 
 		private function isAssociativeArray( array $array ) {
