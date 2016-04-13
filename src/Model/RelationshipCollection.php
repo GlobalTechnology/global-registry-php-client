@@ -12,15 +12,18 @@
 		 */
 		protected $data;
 
-		public function __construct( $type = null, array $data = array() ) {
+		public function __construct( array $data = array(), $type = null ) {
 			$this->data = array();
 
-			// Wrap relationship in array if only single
-			if ( array_key_exists( Relationship::RELATIONSHIP_ENTITY_ID, $data ) )
-				$data = array( $data );
+			if ( ! empty( $data ) ) {
 
-			foreach ( $data as $relationship ) {
-				$this->data[ ] = new Relationship( $type, $relationship );
+				// Wrap relationship in array if only single
+				if ( ! $this->isArrayOfArrays( $data ) )
+					$data = array( $data );
+
+				foreach ( $data as $relationship ) {
+					$this->data[] = new Relationship( $type, $relationship );
+				}
 			}
 		}
 
@@ -42,7 +45,12 @@
 		}
 
 		public function offsetSet( $offset, $value ) {
-			$this->data[ $offset ] = $value;
+			if ( is_null( $offset ) ) {
+				$this->data[] = $value;
+			}
+			else {
+				$this->data[ $offset ] = $value;
+			}
 		}
 
 		public function offsetUnset( $offset ) {
@@ -51,6 +59,13 @@
 
 		public function jsonSerialize() {
 			return ( count( $this ) <= 0 ) ? array() : $this->data;
+		}
+
+		private function isArrayOfArrays( array $array ) {
+			foreach ( array_values( $array ) as $value ) {
+				if ( ! is_array( $value ) ) return false;
+			}
+			return true;
 		}
 
 	}

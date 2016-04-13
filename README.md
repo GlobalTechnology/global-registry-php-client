@@ -63,6 +63,14 @@ $entity = $client->getEntity( 7178632 );
 $entity->last_name = 'TestUser';
 $entity = $client->updateEntity( $entity );
 
+// Add a Relationship
+$entity->addRelationship( new \GlobalTechnology\GlobalRegistry\Model\Relationship( 'ministry', array(
+	'ministry'               => '8edc2ad4-d6ac-11e3-851c-12725f8f377c',
+	'client_integration_id'  => 2,
+	'ministry_of_employment' => true,
+	'funding_source'         => 'Centrally Funded Staff'
+) ) );
+
 // Delete an Entity
 $client->deleteEntity( $entity->id );
 

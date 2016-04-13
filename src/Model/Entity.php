@@ -38,7 +38,7 @@
 						break;
 					default:
 						if ( $this->isRelationship( $name ) ) {
-							$this->data[ $name ] = new RelationshipCollection( $this->relationshipType( $name ), $value );
+							$this->data[ $name ] = new RelationshipCollection( $value, $this->relationshipType( $name ) );
 						}
 						else {
 							if ( is_array( $value ) ) {
@@ -140,6 +140,15 @@
 			if ( $this->hasRelationship( $key ) )
 				return $this->$key;
 			return null;
+		}
+
+		public function addRelationship( Relationship $relationship ) {
+			$key = $relationship->entity_type . self::FIELD_RELATIONSHIP;
+			if ( ! $this->hasRelationship( $key ) ) {
+				$this->$key = new RelationshipCollection( array(), $relationship->entity_type );
+			}
+			$collection   = $this->getRelationship( $key );
+			$collection[] = $relationship;
 		}
 
 		private function isRelationship( $key ) {
